@@ -10,9 +10,13 @@ socket.on('mensajes', data => {
 	renderizadoMensajes(data)
 })
 
-
+socket.on('product-push', data =>{
+	console.log(data)
+	prod.push(data)
+	console.log(prod);
+	renderizadoProductos(prod)
+})
 socket.on('message-push', data => {
-	console.log(data);
 	mens.push(data)
 	renderizadoMensajes(mens)
 })
@@ -52,6 +56,7 @@ formChat.addEventListener('submit', (event) => {
 
 
 const renderizadoProductos = async (productos) => {
+	prod = productos
 	const respuesta = await fetch('./productos.template.handlebars')
 	const template = await respuesta.text()
 	const compiledTemplate = Handlebars.compile(template);
